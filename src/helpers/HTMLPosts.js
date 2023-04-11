@@ -20,13 +20,17 @@ const HTMLPosts = (twitt, mods) => {
   }${twitt.text ? `🇺🇲 : ${twitt.text}\n\n` : ""}${
     twitt.textUA ? `🇺🇦 : ${twitt.textUA}\n\n` : ""
   }${
-    twitt.haveRepost
+    twitt.haveRepost &&
+    (twitt.repost?.repostText ||
+      twitt.repost?.repostVideo ||
+      twitt.repost?.repostImg ||
+      twitt.repost?.repostText)
       ? `<pre>🪪 Зробив репост</pre> <b>${twitt.repost?.repostName}</b> ${
           twitt.repost?.repostVerification ? "✪" : ""
         } <a href=\"${twitt.link}\">${twitt.repost?.repostNikName}</a>\n\n`
       : ""
   }${
-    twitt.repost?.repostText ? `🇺🇲 Pепост: ${twitt.repost?.repostText}\n\n` : ""
+    twitt.repost?.repostText ? `🇺🇲 Pепост: ${twitt.repost?.repostText}\n` : ""
   }${
     twitt.repost?.repostText
       ? `🇺🇦 Pепост: ${twitt.repost?.repostTextUA}\n\n`
@@ -34,7 +38,8 @@ const HTMLPosts = (twitt, mods) => {
   }${twitt.video ? `<a href=\"${twitt.link}\">🎬Лінк на відео</a>\n\n` : ""}${
     modCII
       ? `Коментар gpt 👩‍🏫: ${
-          twitt.comentModCII || "Немає для цого поста, очікуйте оновлення"
+          twitt.comentModCII ||
+          "Немає для цого поста, очікуйте оновлення, або оновіть спісок через /subscriptions та виберіть карточку постів 🪪 "
         }\n\n`
       : ""
   }${
